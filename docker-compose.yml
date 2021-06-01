@@ -1,0 +1,24 @@
+version: "3.5"
+
+networks:
+  grpc-network:
+    driver: bridge
+    name: grpc-network
+
+services:
+  user-app:
+    container_name: grpc-user-app
+    build:
+      context: user-app
+    image: grpc-user-app:latest
+    networks: [grpc-network]
+    ports:
+      - 9000:9000
+  consumer-app:
+    container_name: http-consumer-app
+    build:
+      context: consumer-app
+    image: http-consumer-app:latest
+    networks: [grpc-network]
+    ports:
+      - 3000:3000
